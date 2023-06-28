@@ -1,0 +1,85 @@
+#include<stdio.h> 
+#include<string.h> 
+#include<ctype.h> 
+#include<math.h> 
+void push(int);
+int pop();
+void display(); 
+int s[25];
+int top=-1; 
+int ch;
+void main()
+{
+char postfix[25],ele; 
+int i,op1,op2,res;
+printf("enter a postfix expression\n"); 
+scanf("%s",postfix);
+i=0;
+while(i<strlen(postfix))
+{
+ele=postfix[i]; 
+if(isdigit(ele))
+{
+push(ele-'0');
+}
+else
+{
+op2=pop(); 
+op1=pop();
+switch(ele)
+{
+case '^': 
+res=pow(op1,op2); 
+break;
+case '*': 
+res=op1*op2; 
+break;
+case '/': 
+res=op1/op2; 
+break;
+case '+': 
+res=op1+op2; 
+break;
+case '-':
+res=op1-op2; 
+break;
+}
+push(res);
+}
+i++;
+}
+printf("the result is %d\n",pop());
+}
+void push(int value)
+{
+if(top==24)
+{
+printf("stack is full\n");
+}
+else
+{
+top++; 
+s[top]=value;
+}
+}
+int pop()
+{
+if(top==-1)
+{
+printf("stack is empty\n");
+}
+else
+{
+ch=s[top]; 
+top--;
+}
+return ch;
+}
+void display()
+{
+int i; 
+for(i=0;i<=top;i++)
+{
+printf("%d\t",s[i]);
+}
+}
